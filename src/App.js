@@ -24,7 +24,6 @@ const emojis = [
 
 function App() {
 
-  const message = null;
   const [firstNumber, setFirstNumber] = useState(0);
   const [secondNumber, setSecondNumber] = useState(0);
   const [selectedOperator, setSelectedOperator] = useState(null)
