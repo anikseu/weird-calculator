@@ -5,9 +5,10 @@ The project has been created with React for frontend and Laravel for backend.
 ## Installation
 
 First, lets start with the backend laravel application, run the following commands:
+
     cd weird-calculator-api/
-    composer install`
-    php artisan serve`
+    composer install
+    php artisan serve
 
 This will launch the backend application on [http://localhost:8000](http://localhost:8000). 
 
