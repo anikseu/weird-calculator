@@ -3,8 +3,6 @@ import { useState } from 'react';
 import Select from "react-select";
 
 
-const displayEmojiName = event => alert(event.target.id);
-
 const emojis = [
   {
     emoji: '👽',
@@ -36,11 +34,11 @@ function App() {
 
   let handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(firstNumber)
-    console.log(secondNumber)
-    console.log(selectedOperator)
+
+    if(selectedOperator == null){
+      alert('Please select operator from select field'); 
+    }
     const API_URL = process.env.REACT_APP_API_URL;
-    //console.log(API_URL)
     try {
       let res = await fetch(API_URL + '/calculate', {
         method: "POST",
@@ -52,8 +50,7 @@ function App() {
       });
       let resJson = await res.json();
       if (res.status === 200) {
-        console.log(resJson.result);
-        setResult(resJson.result)
+        setResult(resJson.result);
       } else {
         //setMessage("Some error occured");
       }
@@ -63,22 +60,27 @@ function App() {
   };
 
   return (
-    <div className="App">
+    <div className="container">
+      <h1>Calculator</h1>
       <form onSubmit={handleSubmit}>
+        <label>First Number:</label>
         <input
           type="number"
           value={firstNumber}
           placeholder="First Number"
           onChange={(e) => setFirstNumber(e.target.value)}
         />
+        <label>Select Operator</label>
         <Select
           name="operator"
           options={emojis}
           value={selectedOperator}
+          className="selectField"
           onChange={setSelectedOperator}
           getOptionLabel={(emojis) => emojis.emoji}
           getOptionValue={(emojis) => emojis.type} // It should be unique value in the options. E.g. ID
         />
+        <label>Second number:</label>
         <input
           type="number"
           value={secondNumber}
@@ -86,9 +88,9 @@ function App() {
           onChange={(e) => setSecondNumber(e.target.value)}
         />
 
-        <button type="submit">Calculate</button>
+        <button class="submitBtn" type="submit">Calculate</button>
 
-        <div className="message"> The calculated result is: {<p>{result}</p>}</div>
+        <div className="message"> The calculated result is: {<h2>{result}</h2>}</div>
       </form>
     </div>
   )
